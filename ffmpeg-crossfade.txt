@@ -1,0 +1,30 @@
+This is how I did :
+
+    ffmpeg version N-77197-gdf2ce13
+    2 videos of 4 seconds each.
+    Need to join it with fade between them.
+    videos are 25 fps.
+
+
+1) Add fade out (light to dark) at the end of the 1st and fade in (dark to light) at the beggining of the 2nd:
+
+ffmpeg -i 1.mp4 -y -vf fade=out:76:24 1f.mp4
+
+ffmpeg -i 2.mp4 -y -vf fade=in:0:25 2f.mp4
+
+76:24 mean the fade out will start frame 76 and will finish 24 frames later = 1s fade out.
+
+0:25 mean the fade in will start frame 0 and will finish 25 frames later.
+
+
+2) Merge the 2 videos
+
+Convert all to TS
+
+ffmpeg -i 1f.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts 1f.ts
+
+ffmpeg -i 2f.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts 2f.ts
+
+Merge
+
+ffmpeg -i "concat:1f.ts|2f.ts" -bsf:a aac_adtstoasc -c copy output.mp4

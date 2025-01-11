@@ -1,5 +1,5 @@
-# генерируем палитру на основе кадров
+# generating a palette based on frames
 ffmpeg -i %02d.png -vf palettegen palette.png
 
-# используем палитру для генерации гифок
+# uses a palette to generate GIFs
 ffmpeg -i %02d.png -i palette.png  -lavfi "paletteuse" -y stages.gif

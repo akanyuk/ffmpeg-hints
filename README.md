@@ -77,7 +77,7 @@ video in frames, audio in seconds
 ffmpeg -i s1.mp4 -y -vf "fade=in:0:120, fade=out:61233:240, scale=1704:960" -af "afade=in:st=0:d=2,afade=out:st=253.5:d=2.5" s2.mp4
 ```
 
-### Counting numver of frames
+### Counting number of frames
 ```
 ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 3.mp4 
 ```

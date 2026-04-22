@@ -26,11 +26,6 @@ Where the options are as follows:
 ffmpeg -i "%1" -vf "scale=880:1100:flags=neighbor,pad=width=1464:height=1100:x=292:y=0:color=black" "%1.mp4"
 ```
 
-### Make mp4 from DOSBox capture
-```
-ffmpeg -i %1 -vf scale=640:480:flags=neighbor -r 30 -vcodec libx264 -crf 20 -acodec libmp3lame -aq 2 -f mp4 %1.mp4
-```
-
 ### Rotate the video by 90, 180, 270 degrees. Can be mirrored
 
 0 = 90 Counterclockwise and Vertical Flip (default)
@@ -41,6 +36,11 @@ ffmpeg -i %1 -vf scale=640:480:flags=neighbor -r 30 -vcodec libx264 -crf 20 -aco
 To rotate 180 degrees, instead use "transpose=2,transpose=2"
 ```
 ffmpeg -i afterparty2.ts -vf "transpose=2" afterparty2.mp4
+```
+
+### Increase the duration of the video using the last frame
+```
+ffmpeg -i in.mp4 -vf tpad=stop_mode=clone:stop_duration=10 out.mp4
 ```
 
 ### Concat protocol
@@ -83,6 +83,11 @@ ffmpeg -i s1.mp4 -y -vf "fade=in:0:120, fade=out:61233:240, scale=1704:960" -af 
 ### Counting number of frames
 ```
 ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 3.mp4 
+```
+
+### Make mp4 from DOSBox capture
+```
+ffmpeg -i %1 -vf scale=640:480:flags=neighbor -r 30 -vcodec libx264 -crf 20 -acodec libmp3lame -aq 2 -f mp4 %1.mp4
 ```
 
 ### Example of a stream on stream.retroscene.org
